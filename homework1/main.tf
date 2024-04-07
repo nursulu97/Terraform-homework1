@@ -65,7 +65,7 @@ resource "aws_iam_group_membership" "twice_members" {
     aws_iam_user.dahyun.name,
   ]
 }
-
+# Created two users manually in AWS Console (attach 0 policies): miyeon and mina
 resource "aws_iam_user" "mina" {
   name = "mina"
 }
