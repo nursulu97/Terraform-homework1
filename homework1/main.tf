@@ -76,6 +76,26 @@ resource "aws_iam_user" "mina" {
 resource "aws_iam_user" "miyeon" {
   name = "miyeon"
 }
+resource "aws_iam_group_membership" "bl" {
+  name = "tf-testing-group-membership"
+
+  users = [
+    aws_iam_user.mina.name,
+  ]
+
+  group = aws_iam_group.blackpink.name
+}
+
+resource "aws_iam_group_membership" "tw" {
+  name = "tf-testing-group-membership"
+
+  users = [
+    aws_iam_user.miyeon.name,
+  ]
+
+  group = aws_iam_group.twice.name
+}
+
 # terraform import aws_iam_user.miyeon miyeon
 # terraform import aws_iam_user.mina mina
 
