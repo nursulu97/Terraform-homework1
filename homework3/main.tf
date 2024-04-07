@@ -27,7 +27,7 @@ resource "aws_instance" "web" {
   instance_type = "t2.micro"
   availability_zone      = element(data.aws_availability_zones.all.names, count.index)
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
-  key_name = aws_key_pair.hw3.bastion-key
+  key_name = aws_key_pair.hw3.key_name
  
   user_data = file("apache.sh")
   user_data_replace_on_change = true 
