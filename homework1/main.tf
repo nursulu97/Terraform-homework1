@@ -66,9 +66,6 @@ resource "aws_iam_group_membership" "twice_members" {
   ]
 }
 
-
-#terraform init
-#terraform apply
 resource "aws_iam_user" "mina" {
   name = "mina"
 }
@@ -95,8 +92,9 @@ resource "aws_iam_group_membership" "tw" {
 
   group = aws_iam_group.twice.name
 }
-
+#terraform init
 # terraform import aws_iam_user.miyeon miyeon
 # terraform import aws_iam_user.mina mina
+#terraform apply --auto-approve
 
 # terraform destroy to confirm you can delete all resources
