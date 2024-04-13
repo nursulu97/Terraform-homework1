@@ -24,6 +24,7 @@ resource "aws_internet_gateway" "homework5_igw" {
 resource "aws_subnet" "public1" {
   vpc_id            = aws_vpc.kaizen.id
   cidr_block        = var.subnets[0].cidr_block
+   map_public_ip_on_launch = true
   availability_zone = var.subnets[0].availability_zone
 
   tags = {
@@ -35,6 +36,7 @@ resource "aws_subnet" "public1" {
 resource "aws_subnet" "public2" {
   vpc_id            = aws_vpc.kaizen.id
   cidr_block        = var.subnets[1].cidr_block
+   map_public_ip_on_launch = true
   availability_zone = var.subnets[1].availability_zone
 
   tags = {
@@ -46,6 +48,7 @@ resource "aws_subnet" "public2" {
 resource "aws_subnet" "private1" {
   vpc_id            = aws_vpc.kaizen.id
   cidr_block        = var.subnets[2].cidr_block
+   map_public_ip_on_launch = true
   availability_zone = var.subnets[2].availability_zone
 
   tags = {
@@ -57,6 +60,7 @@ resource "aws_subnet" "private1" {
 resource "aws_subnet" "private2" {
   vpc_id            = aws_vpc.kaizen.id
   cidr_block        = var.subnets[3].cidr_block
+   map_public_ip_on_launch = true
   availability_zone = var.subnets[3].availability_zone
 
   tags = {
