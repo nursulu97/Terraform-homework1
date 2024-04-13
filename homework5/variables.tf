@@ -13,8 +13,19 @@ variable "internet_gateway_name" {
   default = "homework5_igw"
 }
 
-variable "vpc_cidr" {
-  default = "192.168.0.0/16"
+variable "vpc" {
+  type =list(object({
+    vpc_cidr = string
+    vpc_name = string
+    vpc_sup = bool
+    dns_host = bool
+  }))
+  default = [{
+    dns_host = true
+    vpc_cidr = "192.168.0.0/16"
+    vpc_name = "kaizen"
+    vpc_sup = true
+  }] 
 }
 variable "subnets" {
   description = "List of subnets"
