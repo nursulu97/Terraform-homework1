@@ -1,37 +1,30 @@
 # Launch EC2 Instances
-resource "aws_instance" "ubuntu" {
-  ami                    = var.ami_ubuntu
-  instance_type          = "t2.micro"
-  subnet_id              = aws_subnet.public1.id 
-  vpc_security_group_ids =[aws_security_group.kaizen_sg.id]
-  key_name               = var.key_pair
- user_data = file("ubuntu_apache.sh")
+resource "aws_instance" "ubuntu_instance" {
+  count           = length(var.ec2_instances)
+  ami             = var.ec2_instances[count.index].ami
+  instance_type   = var.ec2_instances[count.index].instance_type
+   subnet_id              = aws_subnet.public1.id 
+  security_groups = [aws_security_group.kaizen_sg.id]
+  key_name        = var.key_name
+  user_data       = file("ubuntu_apache.sh")
   user_data_replace_on_change = true 
 
   tags = {
-    Name = "Ubuntu"
+    Name = var.ec2_instances[count.index].name
   }
-  
 }
 
-resource "aws_instance" "amazon" {
-  ami                    = var.ami_amazon_linux
-  instance_type          = "t2.micro"
-  subnet_id = aws_subnet.public2.id
-  vpc_security_group_ids = [aws_security_group.kaizen_sg.id]
-  key_name               = var.key_pair
-  user_data = file("linux_apache.sh")
+resource "aws_instance" "amazon_instance" {
+  count           = length(var.ec2_instances)
+  ami             = var.ec2_instances[count.index].ami
+  instance_type   = var.ec2_instances[count.index].instance_type
+   subnet_id              = aws_subnet.public2.id 
+  security_groups = [aws_security_group.kaizen_sg.id]
+  key_name        = var.key_name
+  user_data       = file("linux_apache.sh")
   user_data_replace_on_change = true 
 
   tags = {
-    Name = "Amazon"
+    Name = var.ec2_instances[count.index].name
   }
-  
-}
-output "ubuntu_public_dns" {
-  value = aws_instance.ubuntu.public_dns
-}
-
-output "ubuntu_public_ip" {
-  value = aws_instance.ubuntu.public_ip
 }

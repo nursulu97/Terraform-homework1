@@ -1,27 +1,21 @@
+# Define variables
 variable "region" {
-  description = "AWS region"
-  default     = "us-west-2"
-}
-variable "key_pair" {
-  description = "Name of key for EC2 instances"
-  default     = "bastion-key"
+  default = "us-west-2"
 }
 
-variable "ami_ubuntu" {
-  description = "AMI ID for the latest Ubuntu image"
-  default     = "ami-08116b9957a259459"
+
+
+variable "route_table_names" {
+  default = ["public-rt", "private-rt"]
 }
 
-variable "ami_amazon_linux" {
-  description = "AMI ID for the latest Amazon Linux image"
-  default     = "ami-0395649fbe870727e"
+variable "internet_gateway_name" {
+  default = "homework5_igw"
 }
 
-variable "cidr_block" {
-  description = "CIDR block for the VPC"
-  default     = "10.0.0.0/16"
+variable "vpc_cidr" {
+  default = "192.168.0.0/16"
 }
-
 variable "subnets" {
   description = "List of subnets"
   type = list(object({
@@ -32,25 +26,44 @@ variable "subnets" {
   default = [
     {
       name             = "public1"
-      cidr_block       = "10.0.1.0/24" 
+      cidr_block       = "192.168.1.0/24" 
       availability_zone = "us-west-2a"
     },
     {
       name             = "public2"
-      cidr_block       = "10.0.2.0/24"  
+      cidr_block       = "192.168.2.0/24"  
       availability_zone = "us-west-2b"
     },
     {
       name             = "private1"
-      cidr_block       = "10.0.3.0/24"  
+      cidr_block       = "192.168.101.0/24"  
       availability_zone = "us-west-2c"
     },
     {
       name             = "private2"
-      cidr_block       = "10.0.4.0/24"  
+      cidr_block       = "192.168.102.0/24"  
       availability_zone = "us-west-2d"
     }
   ]
+}
+
+
+variable "ec2_instances" {
+  default = [
+    { name = "ubuntu", ami = "ami-08116b9957a259459", instance_type = "t2.micro" },
+    { name = "amazon", ami = "ami-0395649fbe870727e", instance_type = "t2.micro" }
+  ]
+}
+
+variable "open_ports" {
+  description = "List of open ports"
+  type        = list(number)
+  default     = [22, 80]
+}
+ variable "key_name" {
+  description = "Name of the key pair"
+  default     = "Bastion-key"
+  type        = string
 }
 
 

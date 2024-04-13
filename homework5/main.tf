@@ -3,7 +3,7 @@ provider "aws" {
 }
 # Create VPC
 resource "aws_vpc" "kaizen" {
-  cidr_block = var.cidr_block
+  cidr_block       = var.vpc_cidr
   enable_dns_support = true
   enable_dns_hostnames = true
 
@@ -11,7 +11,6 @@ resource "aws_vpc" "kaizen" {
     Name = "kaizen"
   }
 }
-
 # Create Internet Gateway
 resource "aws_internet_gateway" "homework5_igw" {
   vpc_id = aws_vpc.kaizen.id
@@ -20,7 +19,6 @@ resource "aws_internet_gateway" "homework5_igw" {
     Name = "homework5_igw"
   }
 }
-
 # Create Subnets
 # Create Subnet for public1
 resource "aws_subnet" "public1" {
@@ -65,6 +63,7 @@ resource "aws_subnet" "private2" {
     Name = var.subnets[3].name
   }
 }
+
 
 
 # Create Route Table for Public Subnets
